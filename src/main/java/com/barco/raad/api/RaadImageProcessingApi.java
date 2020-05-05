@@ -94,21 +94,15 @@ public class RaadImageProcessingApi {
         try {
             response = new ResponseDTO();
             extData = new HashMap<>();
-            // base image
-            BufferedImage bImage = ImageIO.read(imageCompare.getOldImage().getInputStream());
-            // compare image
-            BufferedImage cImage = ImageIO.read(imageCompare.getNewImage().getInputStream());
-            //Create ImageComparison object for it.
-            ImageComparison imageComparison = new ImageComparison(bImage, cImage);
-            // oky
+            BufferedImage expectedImage = ImageIO.read(imageCompare.getOldImage().getInputStream());
+            BufferedImage actualImage = ImageIO.read(imageCompare.getNewImage().getInputStream());
+            ImageComparison imageComparison = new ImageComparison(expectedImage, actualImage);
             if(imageCompare.getThreshold() != null) {
                 imageComparison.setThreshold(imageCompare.getThreshold());
             }
-            // oky
             if(imageCompare.getRectangleLineWidth() != null) {
                 imageComparison.setRectangleLineWidth(imageCompare.getRectangleLineWidth());
             }
-            // oky
             if(imageCompare.getFillDifferenceRectangles() != null
                     && imageCompare.getPercentOpacityDifferenceRectangles() != null) {
                 imageComparison.setDifferenceRectangleFilling(imageCompare.getFillDifferenceRectangles(),

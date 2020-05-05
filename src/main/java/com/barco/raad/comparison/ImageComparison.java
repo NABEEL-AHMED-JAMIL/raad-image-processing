@@ -401,7 +401,7 @@ public class ImageComparison {
      */
     private void drawRectanglesOfDifferences(List<Rectangle> rectangles, Graphics2D graphics) {
         List<Rectangle> rectanglesForDraw;
-        graphics.setColor(Color.orange);
+        graphics.setColor(Color.RED);
 
         if (maximalRectangleCount > 0 && maximalRectangleCount < rectangles.size()) {
             rectanglesForDraw = rectangles.stream()
