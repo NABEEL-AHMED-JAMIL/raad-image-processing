@@ -33,7 +33,7 @@ public class ImageComparisonResult {
     /**
      * The difference percentage between two images.
      */
-    private float differencePercent;
+    private double differencePercent;
 
     private List<Rectangle> rectangles;
 
@@ -45,7 +45,7 @@ public class ImageComparisonResult {
      * @param differencePercent the percent of the differences between images.
      * @return instance of the {@link ImageComparisonResult} object.
      */
-    public static ImageComparisonResult defaultSizeMisMatchResult(BufferedImage expected, BufferedImage actual, float differencePercent) {
+    public static ImageComparisonResult defaultSizeMisMatchResult(BufferedImage expected, BufferedImage actual, double differencePercent) {
         return new ImageComparisonResult().setImageComparisonState(ImageComparisonState.SIZE_MISMATCH)
             .setDifferencePercent(differencePercent).setExpected(expected).setActual(actual).setResult(actual);
     }
@@ -57,9 +57,9 @@ public class ImageComparisonResult {
      * @param actual actual {@link BufferedImage} object.
      * @return instance of the {@link ImageComparisonResult} object.
      */
-    public static ImageComparisonResult defaultMisMatchResult(BufferedImage expected, BufferedImage actual, List<Rectangle> rectangles) {
+    public static ImageComparisonResult defaultMisMatchResult(BufferedImage expected, BufferedImage actual, List<Rectangle> rectangles, double differencePercent) {
         return new ImageComparisonResult().setImageComparisonState(ImageComparisonState.MISMATCH).setRectangles(rectangles)
-            .setExpected(expected).setActual(actual).setResult(actual);
+                .setDifferencePercent(differencePercent).setExpected(expected).setActual(actual).setResult(actual);
     }
 
     /**
@@ -69,9 +69,9 @@ public class ImageComparisonResult {
      * @param actual actual {@link BufferedImage} object.
      * @return instance of the {@link ImageComparisonResult} object.
      */
-    public static ImageComparisonResult defaultMatchResult(BufferedImage expected, BufferedImage actual, List<Rectangle> rectangles) {
-        return new ImageComparisonResult().setImageComparisonState(ImageComparisonState.MATCH)
-            .setRectangles(rectangles).setExpected(expected).setActual(actual).setResult(actual);
+    public static ImageComparisonResult defaultMatchResult(BufferedImage expected, BufferedImage actual, List<Rectangle> rectangles, double differencePercent) {
+        return new ImageComparisonResult().setImageComparisonState(ImageComparisonState.MATCH).setRectangles(rectangles)
+                .setDifferencePercent(differencePercent).setExpected(expected).setActual(actual).setResult(actual);
     }
 
     /**
@@ -121,11 +121,11 @@ public class ImageComparisonResult {
         return this;
     }
 
-    public float getDifferencePercent() {
+    public double getDifferencePercent() {
         return differencePercent;
     }
 
-    ImageComparisonResult setDifferencePercent(float differencePercent) {
+    ImageComparisonResult setDifferencePercent(double differencePercent) {
         this.differencePercent = differencePercent;
         return this;
     }

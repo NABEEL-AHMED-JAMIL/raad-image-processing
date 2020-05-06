@@ -70,7 +70,7 @@ public class ImageComparison {
      * Level of the pixel tolerance. By default, it's 0.1 -> 10% difference.
      * The value can be set from 0.0 to 0.99.
      */
-    private double pixelToleranceLevel = 0.1;
+    private double pixelToleranceLevel = 0.0;
 
     /**
      * Constant using for counting the level of the difference.
@@ -108,7 +108,7 @@ public class ImageComparison {
     /**
      * The difference in percent between two images.
      */
-    private float differencePercent;
+    private double differencePercent;
 
     /**
      * Flag for filling comparison difference rectangles.
@@ -178,26 +178,22 @@ public class ImageComparison {
      * @return the result of the drawing.
      */
     public ImageComparisonResult compareImages() {
-
         // check that the images have the same size
         if (isImageSizesNotEqual(expected, actual)) {
             BufferedImage actualResized = ImageComparisonUtil.resize(actual, expected.getWidth(), expected.getHeight());
             differencePercent = ImageComparisonUtil.getDifferencePercent(actualResized, expected);
             return ImageComparisonResult.defaultSizeMisMatchResult(expected, actual, differencePercent);
         }
+        differencePercent = ImageComparisonUtil.getDifferencePercent(actual, expected);
         List<Rectangle> rectangles = populateRectangles();
         if (rectangles.isEmpty()) {
-            ImageComparisonResult matchResult = ImageComparisonResult.defaultMatchResult(expected, actual, rectangles);
+            ImageComparisonResult matchResult = ImageComparisonResult.defaultMatchResult(expected, actual, rectangles, differencePercent);
             if (drawExcludedRectangles) {
-                matchResult.setResult(drawRectangles(rectangles));
-                saveImageForDestination(matchResult.getResult());
+                matchResult.setResult(drawRectangles(rectangles));;
             }
             return matchResult;
         }
-
-        BufferedImage resultImage = drawRectangles(rectangles);
-        saveImageForDestination(resultImage);
-        return ImageComparisonResult.defaultMisMatchResult(expected, actual, rectangles).setResult(resultImage);
+        return ImageComparisonResult.defaultMisMatchResult(expected, actual, rectangles, differencePercent).setResult(drawRectangles(rectangles));
     }
 
     /**
@@ -370,7 +366,6 @@ public class ImageComparison {
     private BufferedImage drawRectangles(List<Rectangle> rectangles) {
         BufferedImage resultImage = ImageComparisonUtil.deepCopy(actual);
         Graphics2D graphics = preparedGraphics2D(resultImage);
-
         drawExcludedRectangles(graphics);
         drawRectanglesOfDifferences(rectangles, graphics);
 
@@ -386,7 +381,6 @@ public class ImageComparison {
         if (drawExcludedRectangles) {
             graphics.setColor(Color.GREEN);
             draw(graphics, excludedAreas.getExcluded());
-
             if (fillExcludedRectangles) {
                 fillRectangles(graphics, excludedAreas.getExcluded(), percentOpacityExcludedRectangles);
             }
@@ -402,7 +396,6 @@ public class ImageComparison {
     private void drawRectanglesOfDifferences(List<Rectangle> rectangles, Graphics2D graphics) {
         List<Rectangle> rectanglesForDraw;
         graphics.setColor(Color.RED);
-
         if (maximalRectangleCount > 0 && maximalRectangleCount < rectangles.size()) {
             rectanglesForDraw = rectangles.stream()
                     .sorted(Comparator.comparing(Rectangle::size))
@@ -411,9 +404,7 @@ public class ImageComparison {
         } else {
             rectanglesForDraw = new ArrayList<>(rectangles);
         }
-
         draw(graphics, rectanglesForDraw);
-
         if (fillDifferenceRectangles) {
             fillRectangles(graphics, rectanglesForDraw, percentOpacityDifferenceRectangles);
         }

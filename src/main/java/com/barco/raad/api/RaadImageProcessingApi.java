@@ -130,7 +130,7 @@ public class RaadImageProcessingApi {
             //After configuring the ImageComparison object, can be executed compare() method:
             ImageComparisonResult imageComparisonResult = imageComparison.compareImages();
             // result
-            extData.put("Status", imageComparisonResult.getImageComparisonState());
+            extData.put("status", imageComparisonResult.getImageComparisonState());
             if(imageComparisonResult.getRectangles() != null) {
                 extData.put("total_rect", imageComparisonResult.getRectangles().size());
                 extData.put("rect_size", imageComparisonResult.getRectangles()
@@ -138,6 +138,7 @@ public class RaadImageProcessingApi {
                         return rectangle.size();
                     }).collect(Collectors.toList()));
             }
+            extData.put("differencePercent", imageComparisonResult.getDifferencePercent());
             System.out.println(extData);
             //And Result Image
             BufferedImage resultImage = imageComparisonResult.getResult();
