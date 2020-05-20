@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div style='text-align: center;'>
+<h1>Look for issue</h1>
+<p>
+I looked at the statement with assumption that there may be missing or misplaced part
+of time string generating the error message. But after validating the format and syntax
+i believed that time string and over all syntax is correct. It was using time string
+starting from minutes and hours thus skipping the seconds.
+That is quite fine to do this, so found no reason for error.
+</p>
+<!--<img src="real/real-1.png" alt="real-1 not found" width="500" height="400">
+<img src="change/change-1.png" alt="real-1 not found" width="500" height="400">
+<img src="change/change-3.png" alt="real-1 not found" width="500" height="400">
+<img src="real/Alferon-Pipeline-Web-1200x761.jpg" alt="real-1 not found" width="500" height="400">-->
+<img src="change/Alferon-Pipeline-Web-1200x761.jpg" alt="real-1 not found" width="500" height="400">
+
+<br>
+<h1>Behavior of time string</h1>
+<p>
+Time string in WAITFOR DELAY statement follows a behavior. We can not set
+hours value by just increasing the minutes beyond 59. And same is true for seconds.
+We can not set minutes value by increasing the seconds beyond 59.
+Maximum value for seconds and minutes is 59 while for hours it is 23.
+Therefor maximum delay that can be achieved by WAITFOR DELAY
+</p>
+<img src="real/real-2.png" alt="real-2 not found" width="500" height="400">
+<!--<img src="change/change-2.png" alt="real-1 not found" width="500" height="400">-->
+<br>
+
+<h1>Conclusion</h1>
+<p>
+sp_executesql has upper hand as compared to exec method of
+executing dynamic sql. Keeping in view the flexibility,
+efficiency and security of sp_executesql
+we should opt it for executing dynamic SQL.
+</p>
+
+<!--<img src="real/real-3.png" alt="real-3 not found" width="500" height="400">-->
+<img src="change/change-3.png" alt="real-1 not found" width="500" height="400">
+<br>
+
+<h1>Basic PostgreSQL Tutorial</h1>
+<p>First, you will learn how to query data from a single table using basic data selection
+techniques such as selecting columns, sorting result sets, and filtering rows.
+Then, you will learn about the advanced queries such as joining multiple tables,
+using set operations, and constructing the subquery. Finally,
+you will learn how to manage database tables such as creating new a table or modifying an existing table’s structure.</p>
+
+<img src="real/real-4.png" alt="real-4 not found" width="500" height="400">
+<!--<img src="change/change-4.png" alt="real-1 not found" width="500" height="400">-->
+<br>
+<h1>Section 8. Subquery</h1>
+<p>Subquery – writes a query nested inside another query.
+ANY  – retrieves data by comparing a value with a set of values returned by a subquery.
+ALL – query data by comparing a value with a list of values returned by a subquery.
+EXISTS  – checks for the existence of rows returned by a subquery.</p>
+<img src="real/real-5.png" alt="real-5 not found" width="500" height="400">
+<!--<img src="change/change-5.png" alt="real-1 not found" width="500" height="400">-->
+<br>
+<p>
+Note that a normal view does not store any data except the materialized view.
+In PostgreSQL, you can create a special view called a materialized view 
+that stores data physically and refreshes the data periodically from the base tables.
+The materialized views have many advantages in many scenarios such as faster access to data from a remote server, data caching, etc.
+</p>
+<!--
+<img src="real-6.png" alt="real-6 not found" width="500" height="400">
+<br>
+<img src="pipeline-2019.png" alt="pipeline-2019 not found" width="500" height="400">
+<br>
+<img src="TRPA1-for-Pain_Desktop.jpg" alt="TRPA1-for-Pain_Desktop not found" width="500" height="400">
+-->
+</div>
+</body>
+</html>

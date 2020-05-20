@@ -37,7 +37,7 @@ public class ImageComparison {
     /**
      * Width of the line that is drawn the rectangle
      */
-    private int rectangleLineWidth = 1;
+    private int rectangleLineWidth = 5;
 
     /**
      * {@link File} of the result destination.
@@ -57,7 +57,7 @@ public class ImageComparison {
     /**
      * The number of the minimal rectangle size. Count as (width x height).
      */
-    private Integer minimalRectangleSize = 1;
+    private Integer minimalRectangleSize = 10;
 
     /**
      * Maximal count of the {@link Rectangle}s.
@@ -70,7 +70,7 @@ public class ImageComparison {
      * Level of the pixel tolerance. By default, it's 0.1 -> 10% difference.
      * The value can be set from 0.0 to 0.99.
      */
-    private double pixelToleranceLevel = 0.0;
+    private double pixelToleranceLevel = 0.2;
 
     /**
      * Constant using for counting the level of the difference.
@@ -179,13 +179,15 @@ public class ImageComparison {
      */
     public ImageComparisonResult compareImages() {
         // check that the images have the same size
+        List<Rectangle> rectangles = new ArrayList<>();
         if (isImageSizesNotEqual(expected, actual)) {
             BufferedImage actualResized = ImageComparisonUtil.resize(actual, expected.getWidth(), expected.getHeight());
             differencePercent = ImageComparisonUtil.getDifferencePercent(actualResized, expected);
-            return ImageComparisonResult.defaultSizeMisMatchResult(expected, actual, differencePercent);
+            rectangles.add(new Rectangle(0, 0, actual.getWidth(), actual.getHeight()));
+            return ImageComparisonResult.defaultSizeMisMatchResult(expected, actual, rectangles, differencePercent).setResult(drawRectangles(rectangles));
         }
         differencePercent = ImageComparisonUtil.getDifferencePercent(actual, expected);
-        List<Rectangle> rectangles = populateRectangles();
+        rectangles = populateRectangles();
         if (rectangles.isEmpty()) {
             ImageComparisonResult matchResult = ImageComparisonResult.defaultMatchResult(expected, actual, rectangles, differencePercent);
             if (drawExcludedRectangles) {

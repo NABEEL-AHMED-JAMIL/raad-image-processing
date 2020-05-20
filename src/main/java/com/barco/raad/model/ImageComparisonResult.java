@@ -45,8 +45,8 @@ public class ImageComparisonResult {
      * @param differencePercent the percent of the differences between images.
      * @return instance of the {@link ImageComparisonResult} object.
      */
-    public static ImageComparisonResult defaultSizeMisMatchResult(BufferedImage expected, BufferedImage actual, double differencePercent) {
-        return new ImageComparisonResult().setImageComparisonState(ImageComparisonState.SIZE_MISMATCH)
+    public static ImageComparisonResult defaultSizeMisMatchResult(BufferedImage expected, BufferedImage actual, List<Rectangle> rectangles, double differencePercent) {
+        return new ImageComparisonResult().setImageComparisonState(ImageComparisonState.SIZE_MISMATCH).setRectangles(rectangles)
             .setDifferencePercent(differencePercent).setExpected(expected).setActual(actual).setResult(actual);
     }
 
